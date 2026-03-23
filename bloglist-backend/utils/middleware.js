@@ -1,6 +1,7 @@
 const logger = require('./logger')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
+const app = express()
 const cors = require('cors')
 
 app.use(cors())
