@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hc2htIiwiaWQiOiI2OWI0MGE5OGNkZDU5ZWRiYTcxZDlhZjciLCJpYXQiOjE3NzM2NTYxMzZ9.DxiVgBU06OmN74wNBrnINrkf8ripKRS0kKeLeYWUANc
+
+{
+    "title": "Safari Rally in Kenya",
+    "author": "Nash",
+    "url": "https://www.safarirally.ke",
+    "likes": 45
+}
