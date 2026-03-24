@@ -5,6 +5,7 @@ const app = express()
 const cors = require('cors')
 
 app.use(cors())
+app.use(express.static('dist'))
 
 const requestLogger = (req, res, next) => {
     logger.info('Method:', req.method)
