@@ -4,9 +4,10 @@ const User = require('../models/user')
 const express = require('express')
 const app = express()
 const cors = require('cors')
+const path = require('path')
 
 app.use(cors())
-app.use(express.static('dist'))
+app.use(express.static(path.join('dist')))
 
 const requestLogger = (req, res, next) => {
     logger.info('Method:', req.method)
