@@ -5,7 +5,6 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build:ui": "rm -rf dist && cd ../bloglist-frontend && npm run build && cp -r dist ../bloglist-backend",
     "lint": "eslint .",
     "preview": "vite preview"
   },
