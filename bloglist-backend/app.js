@@ -11,7 +11,6 @@ const path = require('path')
 
 const app = express()
 
-app.use(express.static(path.join(__dirname, '..', 'dist')))
 
 logger.info('Connecting to', config.MONGODB_URL)
 
@@ -25,13 +24,18 @@ mongoose
     })
 
 app.use(express.json())
+app.use(middleware.requestLogger)
+app.use(middleware.tokenExtractor)
 
 app.use('/api/blogs', middleware.userExtractor, blogsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
+
+app.use(express.static(path.join(__dirname, '..', 'dist')))
+
+
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
-app.use(middleware.requestLogger)
-app.use(middleware.tokenExtractor)
+
 
 module.exports = app 
