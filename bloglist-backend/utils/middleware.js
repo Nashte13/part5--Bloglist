@@ -2,10 +2,14 @@ const logger = require('./logger')
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 const express = require('express')
-const app = express()
 const path = require('path')
+const blogsRouter = require('../controllers/blogs')
 
+const app = express()
+app.use(express.json())
 app.use(express.static(path.join(__dirname, '..', 'dist')))
+
+app.use('/api/blogs', blogsRouter)
 
 const requestLogger = (req, res, next) => {
     logger.info('Method:', req.method)
@@ -67,5 +71,6 @@ module.exports = {
     unknownEndpoint,
     errorHandler,
     tokenExtractor,
-    userExtractor
+    userExtractor,
+    app
 }
