@@ -33,11 +33,6 @@ app.use('/api/login', loginRouter)
 
 app.use(express.static(path.join(__dirname, '..', 'dist')))
 
-//fall back route
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'dist', 'index.html' ))
-})
-
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
