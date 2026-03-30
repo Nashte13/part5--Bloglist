@@ -42,7 +42,7 @@ const tokenExtractor = (req, res, next) => {
 
 const userExtractor = async (req, res, next) => {
     const authorization = req.get('authorization')
-    if (authorization && authorization.toLowerCase.toStartWith('bearer ')) {
+    if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
         const token = authorization.subString(7)
         const decodedToken = jwt.verify(token, process.env.SECRET)
         
