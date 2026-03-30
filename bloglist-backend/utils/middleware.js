@@ -25,15 +25,15 @@ const errorHandler = (error, req, res, next) => {
     } else if (error.name === 'MongoServerError' && error.message.includes('E11000 duplicate key error')) {
         return res.status(400).json({error: 'expected `username` must be unique'})
     } else if (error.name === 'JsonWebTokenError') {
-        return res.status(400).json({error: 'Inavlid token'})
+        return res.status(400).json({error: 'Invalid token'})
     }
     next(error)
 }
 
 const tokenExtractor = (req, res, next) => {
     const authorization = req.get('authorization')
-    if (authorization && authorization.toLowerCase().toStartWith('bearer ')) {
-        return authorization.replace('Bearer ', '')
+    if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+        req.token =  authorization.replace('Bearer ', '')
     } else {
         req.token = null
     }
