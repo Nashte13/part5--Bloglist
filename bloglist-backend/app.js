@@ -32,10 +32,10 @@ app.use('/api/blogs', middleware.userExtractor, blogsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 
-app.use(express.static(path.join(__dirname, '..', 'dist')))
+app.use(express.static(path.join(__dirname, 'dist')))
 
 app.use((req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'dist', 'index.html'))
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'))
 })
 
 
