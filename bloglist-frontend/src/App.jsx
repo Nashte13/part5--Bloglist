@@ -20,7 +20,7 @@ const App = () => {
   const handleLogin = async event => {
     event.preventDefault()
     try {
-      const user = await loginServices.login({ username, pasword })
+      const user = await loginServices.login({ username, password })
       setUser(user)
       setUsername('')
       setPassword('')
@@ -32,9 +32,8 @@ const App = () => {
     }
   }
 
-  return (
+  const loginForm = () => {
     <div>
-      <Notification message={errorMessage} />
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <div>
@@ -43,7 +42,7 @@ const App = () => {
             <input
               type="text"
               value={username}
-              onChange={({target}) => setUsername(target.value)}
+              onChange={({ target }) => setUsername(target.value)}
             />
           </label>
         </div>
@@ -53,16 +52,28 @@ const App = () => {
             <input
               type="text"
               value={password}
-              onChange={({target}) => setPassword(target.value)}
+              onChange={({ target }) => setPassword(target.value)}
             />
           </label>
         </div>
-        <button type='submit'>Login</button>
+        <button type="submit">Login</button>
       </form>
-      <h2>blogs</h2>
-      {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
-      )}
+    </div>;
+  }
+
+  const blogForm = () => {
+    <h2>blogs</h2>;
+    {
+      blogs.map((blog) => <Blog key={blog.id} blog={blog} />);
+    }
+  }
+
+  return (
+    <div>
+      <Notification message={errorMessage} />
+      {!user && loginForm()}
+      {user && blogForm()}
+      
     </div>
   )
 }
