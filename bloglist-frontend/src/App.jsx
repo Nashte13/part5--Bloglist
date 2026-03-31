@@ -3,6 +3,7 @@ import Blog from './components/Blog'
 import blogService from './services/blogs'
 import loginServices from './services/login'
 import Notification from './components/Notification'
+import LoginForm from './components/LoginForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -32,35 +33,6 @@ const App = () => {
     }
   }
 
-  const loginForm = () => {
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
-        <div>
-          <label>
-            username
-            <input
-              type="text"
-              value={username}
-              onChange={({ target }) => setUsername(target.value)}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            password
-            <input
-              type="text"
-              value={password}
-              onChange={({ target }) => setPassword(target.value)}
-            />
-          </label>
-        </div>
-        <button type="submit">Login</button>
-      </form>
-    </div>;
-  }
-
   const blogForm = () => {
     <h2>blogs</h2>;
     {
@@ -71,7 +43,15 @@ const App = () => {
   return (
     <div>
       <Notification message={errorMessage} />
-      {!user && loginForm()}
+      {!user && (
+        <LoginForm
+          handleLogin={handleLogin}
+          username={username}
+          setUsername={setUsername}
+          password={password}
+          setPassword={setPassword}
+        />
+      )}
       {user && blogForm()}
       
     </div>
