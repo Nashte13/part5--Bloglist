@@ -45,7 +45,11 @@ const App = () => {
           setPassword={setPassword}
         />
       )}
-      {user && blogForm()}
+      {user && (
+        <Blog
+          blog={blogs}
+        />
+      )}
       
     </div>
   )
