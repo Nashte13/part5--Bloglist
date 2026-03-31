@@ -46,13 +46,13 @@ const App = () => {
         />
       )}
       {user && (
-        <Blog
-          blog={blogs}
-        />
+        <div>
+          <p>{username} logged in</p>
+          <Blog blog={blogs} />
+        </div>
       )}
-      
     </div>
-  )
+  );
 }
 
 export default App
