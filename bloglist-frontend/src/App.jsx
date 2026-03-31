@@ -33,6 +33,11 @@ const App = () => {
     }
   }
 
+  const addBlog = async (blogObject) => {
+    const newBlog = await blogService.create(blogObject)
+    setBlogs(blogs.concat(newBlog))
+  }
+
   return (
     <div>
       <Notification message={errorMessage} />
@@ -55,4 +60,4 @@ const App = () => {
   );
 }
 
-export default App
+export defaul
