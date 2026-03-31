@@ -8,6 +8,7 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState('')
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
