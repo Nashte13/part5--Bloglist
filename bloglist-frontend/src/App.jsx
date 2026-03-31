@@ -54,7 +54,7 @@ const App = () => {
       {user && (
         <div>
           <p>{username} logged in</p>
-          <BlogForm />
+          <BlogForm addBlog={addBlog} />
           <Blog blog={blogs} />
         </div>
       )}
@@ -62,4 +62,4 @@ const App = () => {
   );
 }
 
-export defaul
+export default App;
