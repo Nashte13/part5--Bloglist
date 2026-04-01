@@ -57,9 +57,11 @@ const App = () => {
       )}
       {user && (
         <div>
-          <p>{username} logged in</p>
+          <p>{user.username} logged in</p>
           <BlogForm addBlog={addBlog} />
-          <Blog blog={blogs} />
+          {blogs.map(blog => (
+            <Blog key={blog.id} blog={blogs} />
+          ))}
         </div>
       )}
     </div>
