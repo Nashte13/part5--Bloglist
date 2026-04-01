@@ -23,6 +23,7 @@ const App = () => {
     event.preventDefault()
     try {
       const user = await loginServices.login({ username, password })
+      blogService.setToken(user.token)
       setUser(user)
       setUsername('')
       setPassword('')
