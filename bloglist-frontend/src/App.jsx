@@ -52,6 +52,11 @@ const App = () => {
     setBlogs(blogs.concat(newBlog))
   }
 
+  const handleLogout = () => {
+    window.localStorage.removeItem('loggedBogappUser')
+    setUser(null)
+  }
+
   return (
     <div>
       <Notification message={errorMessage} />
@@ -67,9 +72,12 @@ const App = () => {
       )}
       {user && (
         <div>
-          <p>{user.username} logged in</p>
+          <div>
+            <p>{user.username} logged in</p>
+            <button onClick={handleLogout}>Logout</button>
+          </div>
           <BlogForm addBlog={addBlog} />
-          {blogs.map(blog => (
+          {blogs.map((blog) => (
             <Blog key={blog.id} blog={blog} />
           ))}
         </div>
