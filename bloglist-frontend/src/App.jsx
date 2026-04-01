@@ -55,6 +55,7 @@ const App = () => {
   return (
     <div>
       <Notification message={errorMessage} />
+      <h1>Blogs</h1>
       {!user && (
         <LoginForm
           handleLogin={handleLogin}
