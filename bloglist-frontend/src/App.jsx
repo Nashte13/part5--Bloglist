@@ -23,6 +23,9 @@ const App = () => {
     event.preventDefault()
     try {
       const user = await loginServices.login({ username, password })
+      window.localStorage.setItem(
+        'loggedBogappUser', JSON.stringify(user)
+      )
       blogService.setToken(user.token)
       setUser(user)
       setUsername('')
