@@ -11,8 +11,7 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState('')
-  const [errorMessage, setErrorMessage] = useState(null)
-  const [note, setNote] = useState(null)
+  const [notification, setNotification] = useState({ message: null, type: null })
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -41,9 +40,9 @@ const App = () => {
       setUsername('')
       setPassword('')
     } catch {
-      setErrorMessage('Wrong credentials')
+      setNotification({ message: 'Wrong username or password', type: 'error' })
       setTimeout(() => {
-        setErrorMessage(null)
+        setNotification({ message: null, type: null })
       }, 3000)
     }
   }
@@ -52,14 +51,14 @@ const App = () => {
     try {
       const newBlog = await blogService.create(blogObject)
       setBlogs(blogs.concat(newBlog))
-      setNote(`A new blog ${newBlog.title} by ${newBlog.author} added`)
+      setNotification({ message: `A new blog ${newBlog.title} by ${newBlog.author} added`, type: 'success' })
       setTimeout(() => {
-        setNote(null)
+        setNotification({message: null, type: null})
       }, 3000)
     } catch {
-      setErrorMessage('Blog creation failed')
+      setNotification({message: 'Blog creation failed', type: 'error'})
       setTimeout(() => {
-        setErrorMessage(null)
+        setNotification({message: null, type: null})
       }, 3000)
     }
   }
@@ -71,8 +70,7 @@ const App = () => {
 
   return (
     <div>
-      <Notification message={errorMessage} />
-      <Notification message={note} />
+      <Notification message={notification.message} type={notification.type} />
       <h1>Blogs</h1>
       {!user && (
         <LoginForm
