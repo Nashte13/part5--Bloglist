@@ -12,6 +12,7 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
+  const [note, setNote] = useState(null)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -43,13 +44,24 @@ const App = () => {
       setErrorMessage('Wrong credentials')
       setTimeout(() => {
         setErrorMessage(null)
-      }, 5000)
+      }, 3000)
     }
   }
 
   const addBlog = async (blogObject) => {
-    const newBlog = await blogService.create(blogObject)
-    setBlogs(blogs.concat(newBlog))
+    try {
+      const newBlog = await blogService.create(blogObject)
+      setBlogs(blogs.concat(newBlog))
+      setNote(`A new blog ${newBlog.title} by ${newBlog.author} added`)
+      setTimeout(() => {
+        setNote(null)
+      }, 3000)
+    } catch {
+      setErrorMessage('Blog creation failed')
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 3000)
+    }
   }
 
   const handleLogout = () => {
@@ -60,6 +72,7 @@ const App = () => {
   return (
     <div>
       <Notification message={errorMessage} />
+      <Notification message={note} />
       <h1>Blogs</h1>
       {!user && (
         <LoginForm
