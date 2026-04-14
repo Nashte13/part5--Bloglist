@@ -12,6 +12,7 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState('')
   const [notification, setNotification] = useState({ message: null, type: null })
+  const [visible, loginVisible] = useState(false)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -27,6 +28,11 @@ const App = () => {
       blogService.setToken(user.token)
     }
   }, [])
+
+  const loginForm = () => {
+    const hideWhenVisible = { display: loginVisible ? 'none' : '' }
+    const showWhenVisible = { display: loginVisible ? '' : 'none' }
+  }
 
   const handleLogin = async event => {
     event.preventDefault()
