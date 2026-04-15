@@ -5,6 +5,7 @@ import loginServices from "./services/login";
 import Notification from "./components/Notification";
 import LoginForm from "./components/LoginForm";
 import BlogForm from "./components/BlogForm";
+import Togglable from "./components/Togglable";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
@@ -31,7 +32,6 @@ const App = () => {
   }, []);
 
   const loginForm = () => {
-    
 
     const handleLogin = async (event) => {
       event.preventDefault();
@@ -81,22 +81,36 @@ const App = () => {
       <div>
         <Notification message={notification.message} type={notification.type} />
         <h1>Blogs</h1>
-        <div style={hideWhenVisible}>
-          <button onClick={() => setLoginVisible(true)}>Login</button>
-        </div>
         
-        {user && (
-          <div>
+        <button onClick={() => setLoginVisible(true)}>Login</button>
+
+        <Togglable buttonLabel="Login">
+          <LoginForm
+            username={username}
+            password={password}
+            handleUsernameChange={({ target }) => setUsername(target.value)}
+            handlePasswordChange={({ target }) => setPassword(target.value)}
+            handleSubmit={handleLogin}
+          />
+        </Togglable>
+
+        <Togglable>
+          <BlogForm addBlog={addBlog} />
+        </Togglable>
+
+        <Togglable buttonLabel="reveal">
+          {user && (
             <div>
-              <p>{user.username} logged in</p>
-              <button onClick={handleLogout}>Logout</button>
+              <div>
+                <p>{user.username} logged in</p>
+                <button onClick={handleLogout}>Logout</button>
+              </div>
+              {blogs.map((blog) => (
+                <Blog key={blog.id} blog={blog} />
+              ))}
             </div>
-            <BlogForm addBlog={addBlog} />
-            {blogs.map((blog) => (
-              <Blog key={blog.id} blog={blog} />
-            ))}
-          </div>
-        )}
+          )}
+        </Togglable>
         <button onClick={() => setLoginVisible(false)}>Cancel</button>
       </div>
     );
