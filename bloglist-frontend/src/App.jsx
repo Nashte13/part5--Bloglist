@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Blog from "./components/Blog";
 import blogService from "./services/blogs";
 import loginServices from "./services/login";
@@ -16,6 +16,7 @@ const App = () => {
     message: null,
     type: null,
   });
+  const blogFormRef = useRef();
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
@@ -69,7 +70,7 @@ const App = () => {
       }
     };
     const blogForm = () => {
-      <Togglable buttonLabel="Create new blog">
+      <Togglable buttonLabel="Create new blog" ref={blogFormRef}>
         <BlogForm addBlog={addBlog} />
       </Togglable>;
     }
