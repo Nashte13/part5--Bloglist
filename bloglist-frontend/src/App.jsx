@@ -31,94 +31,89 @@ const App = () => {
     }
   }, []);
 
-    const handleLogin = async (event) => {
-      event.preventDefault();
-      try {
-        const user = await loginServices.login({ username, password });
-        window.localStorage.setItem("loggedBogappUser", JSON.stringify(user));
-        blogService.setToken(user.token);
-        setUser(user);
-        setUsername("");
-        setPassword("");
-      } catch {
-        setNotification({
-          message: "Wrong username or password",
-          type: "error",
-        });
-        setTimeout(() => {
-          setNotification({ message: null, type: null });
-        }, 3000);
-      }
-    };
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    try {
+      const user = await loginServices.login({ username, password });
+      window.localStorage.setItem("loggedBogappUser", JSON.stringify(user));
+      blogService.setToken(user.token);
+      setUser(user);
+      setUsername("");
+      setPassword("");
+    } catch {
+      setNotification({
+        message: "Wrong username or password",
+        type: "error",
+      });
+      setTimeout(() => {
+        setNotification({ message: null, type: null });
+      }, 3000);
+    }
+  };
 
-    const addBlog = async (blogObject) => {
-      try {
-        blogFormRef.current.toggleVisibility();
-        const newBlog = await blogService.create(blogObject);
-        setBlogs(blogs.concat(newBlog));
-        setNotification({
-          message: `A new blog ${newBlog.title} by ${newBlog.author} added`,
-          type: "success",
-        });
-        setTimeout(() => {
-          setNotification({ message: null, type: null });
-        }, 3000);
-      } catch {
-        setNotification({ message: "Blog creation failed", type: "error" });
-        setTimeout(() => {
-          setNotification({ message: null, type: null });
-        }, 3000);
-      }
-    };
-    const blogForm = () => (
-      <Togglable buttonLabel="Create new blog" ref={blogFormRef}>
-        <BlogForm addBlog={addBlog} />
-      </Togglable>
-    )
+  const addBlog = async (blogObject) => {
+    try {
+      blogFormRef.current.toggleVisibility();
+      const newBlog = await blogService.create(blogObject);
+      setBlogs(blogs.concat(newBlog));
+      setNotification({
+        message: `A new blog ${newBlog.title} by ${newBlog.author} added`,
+        type: "success",
+      });
+      setTimeout(() => {
+        setNotification({ message: null, type: null });
+      }, 3000);
+    } catch {
+      setNotification({ message: "Blog creation failed", type: "error" });
+      setTimeout(() => {
+        setNotification({ message: null, type: null });
+      }, 3000);
+    }
+  };
+  const blogForm = () => (
+    <Togglable buttonLabel="Create new blog" ref={blogFormRef}>
+      <BlogForm addBlog={addBlog} />
+    </Togglable>
+  );
 
-    const handleLogout = () => {
-      window.localStorage.removeItem("loggedBogappUser");
-      setUser(null);
-    };
+  const handleLogout = () => {
+    window.localStorage.removeItem("loggedBogappUser");
+    setUser(null);
+  };
 
-    return (
-      <div>
-        <Notification message={notification.message} type={notification.type} />
-        <h1>Blogs</h1>
+  return (
+    <div>
+      <Notification message={notification.message} type={notification.type} />
+      <h1>Blogs</h1>
 
-        {!user && (
-          <Togglable buttonLabel="Login">
-            <LoginForm
-              username={username}
-              password={password}
-              handleUsernameChange={({ target }) => setUsername(target.value)}
-              handlePasswordChange={({ target }) => setPassword(target.value)}
-              handleSubmit={handleLogin}
-            />
-          </Togglable>
-        )}
+      {!user && (
+        <Togglable buttonLabel="Login">
+          <LoginForm
+            username={username}
+            password={password}
+            handleUsernameChange={({ target }) => setUsername(target.value)}
+            handlePasswordChange={({ target }) => setPassword(target.value)}
+            handleSubmit={handleLogin}
+          />
+        </Togglable>
+      )}
 
-        {blogForm()}
-          {user && (
-            <div>
-              <div>
-                <p>{user.username} logged in</p>
-                <button onClick={handleLogout}>Logout</button>
-            </div>
-            <Togglable buttonLabel="Create new blog">
-              {blogForm()}
-            </Togglable>
+      {blogForm()}
+      {user && (
+        <div>
+          <div>
+            <p>{user.username} logged in</p>
+            <button onClick={handleLogout}>Logout</button>
+          </div>
+          <Togglable buttonLabel="Create new blog">{blogForm()}</Togglable>
 
-            <Togglable buttonLabel="All blogs">
-              {blogs.map((blog) => (
-                <Blog key={blog.id} blog={blog} />
-              ))}
-            </Togglable>
-            
-            </div>
-          )}
-      </div>
-    );
+          {blogs.map((blog) => (
+            <Blog key={blog.id} blog={blog} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default App;
