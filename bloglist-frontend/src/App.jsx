@@ -71,6 +71,11 @@ const App = () => {
         }, 3000);
       }
     };
+    const blogForm = () => {
+      <Togglable>
+        <BlogForm addBlog={addBlog} />
+      </Togglable>;
+    }
 
     const handleLogout = () => {
       window.localStorage.removeItem("loggedBogappUser");
@@ -94,9 +99,7 @@ const App = () => {
           />
         </Togglable>
 
-        <Togglable>
-          <BlogForm addBlog={addBlog} />
-        </Togglable>
+        {blogForm()}
 
         <Togglable buttonLabel="reveal">
           {user && (
