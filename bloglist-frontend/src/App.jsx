@@ -16,7 +16,6 @@ const App = () => {
     message: null,
     type: null,
   });
-  const [loginVisible, setLoginVisible] = useState(false);
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
@@ -86,35 +85,38 @@ const App = () => {
       <div>
         <Notification message={notification.message} type={notification.type} />
         <h1>Blogs</h1>
-        
-        <button onClick={() => setLoginVisible(true)}>Login</button>
 
-        <Togglable buttonLabel="Login">
-          <LoginForm
-            username={username}
-            password={password}
-            handleUsernameChange={({ target }) => setUsername(target.value)}
-            handlePasswordChange={({ target }) => setPassword(target.value)}
-            handleSubmit={handleLogin}
-          />
-        </Togglable>
+        {!user && (
+          <Togglable buttonLabel="Login">
+            <LoginForm
+              username={username}
+              password={password}
+              handleUsernameChange={({ target }) => setUsername(target.value)}
+              handlePasswordChange={({ target }) => setPassword(target.value)}
+              handleSubmit={handleLogin}
+            />
+          </Togglable>
+        )}
 
         {blogForm()}
-
-        <Togglable buttonLabel="reveal">
           {user && (
             <div>
               <div>
                 <p>{user.username} logged in</p>
                 <button onClick={handleLogout}>Logout</button>
-              </div>
+            </div>
+            <Togglable buttonLabel="Create new blog">
+              {blogForm()}
+            </Togglable>
+
+            <Togglable buttonLabel="All blogs">
               {blogs.map((blog) => (
                 <Blog key={blog.id} blog={blog} />
               ))}
+            </Togglable>
+            
             </div>
           )}
-        </Togglable>
-        <button onClick={() => setLoginVisible(false)}>Cancel</button>
       </div>
     );
   };
