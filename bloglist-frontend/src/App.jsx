@@ -85,17 +85,7 @@ const App = () => {
         <div style={hideWhenVisible}>
           <button onClick={() => setLoginVisible(true)}>Login</button>
         </div>
-        <div onClick={showWhenVisible}>
-          {!user && (
-            <LoginForm
-              handleLogin={handleLogin}
-              username={username}
-              setUsername={setUsername}
-              password={password}
-              setPassword={setPassword}
-            />
-          )}
-        </div>
+        
         {user && (
           <div>
             <div>
