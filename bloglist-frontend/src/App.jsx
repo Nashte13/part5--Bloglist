@@ -70,11 +70,11 @@ const App = () => {
         }, 3000);
       }
     };
-    const blogForm = () => {
+    const blogForm = () => (
       <Togglable buttonLabel="Create new blog" ref={blogFormRef}>
         <BlogForm addBlog={addBlog} />
-      </Togglable>;
-    }
+      </Togglable>
+    )
 
     const handleLogout = () => {
       window.localStorage.removeItem("loggedBogappUser");
