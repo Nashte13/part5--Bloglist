@@ -30,8 +30,6 @@ const App = () => {
     }
   }, []);
 
-  const loginForm = () => {
-
     const handleLogin = async (event) => {
       event.preventDefault();
       try {
@@ -119,7 +117,6 @@ const App = () => {
           )}
       </div>
     );
-  };
 };
 
 export default App;
