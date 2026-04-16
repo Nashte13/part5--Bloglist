@@ -80,7 +80,7 @@ const App = () => {
     try {
       const returnedBlog = await blogService.update(id, updatedBlog);
       setBlogs(blogs.map((blog) => (blog.id === id ? returnedBlog : blog)));
-    } catch (error) {
+    } catch {
       setNotification({ message: "Failed to update likes", type: "error" });
       setTimeout(() => {
         setNotification({ message: null, type: null });
