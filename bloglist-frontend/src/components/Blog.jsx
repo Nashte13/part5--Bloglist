@@ -1,6 +1,12 @@
 import {useState} from 'react'
-const Blog = ({ blog }) => {
+import blogs from '../services/blogs'
+const Blog = ({ blog, updateLikes }) => {
   const [showDetails, setShowDetails] = useState(false)
+
+  const handleLike = () => {
+    const updatedBlog = { ...blog, likes: blogs.likes + 1 }
+    updateLikes(blog.id, updatedBlog)
+  }
   return (
     <div>
       {blog.title} by {blog.author}
@@ -11,7 +17,10 @@ const Blog = ({ blog }) => {
       {showDetails && (
         <div>
           <p>URL: {blog.url}</p>
-          <p>Likes: {blog.likes}</p>
+          <p>
+            Likes: {blog.likes}{""}
+            <button onClick={handleLike}>like</button>
+          </p>
           <p>Author: {blog.author}</p>
         </div>
       )}
