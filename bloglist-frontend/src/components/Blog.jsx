@@ -7,8 +7,16 @@ const Blog = ({ blog, updateLikes }) => {
     const updatedBlog = { ...blog, likes: blogs.likes + 1 }
     updateLikes(blog.id, updatedBlog)
   }
+
+  const blogStyle = {
+    paddingTop: 10,
+    paddingLeft: 2,
+    border: 'solid',
+    borderWidth: 1,
+    marginBottom: 5
+  }
   return (
-    <div>
+    <div style={blogStyle}>
       {blog.title} by {blog.author}
       <button onClick={() => setShowDetails(!showDetails)}>
         {showDetails ? "hide" : "view"}
