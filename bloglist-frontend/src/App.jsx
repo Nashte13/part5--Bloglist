@@ -76,6 +76,18 @@ const App = () => {
     </Togglable>
   );
 
+  const updateLikes = async (id, updatedBlog) => {
+    try {
+      const returnedBlog = await blogService.update(id, updatedBlog);
+      setBlogs(blogs.map((blog) => (blog.id === id ? returnedBlog : blog)));
+    } catch (error) {
+      setNotification({ message: "Failed to update likes", type: "error" });
+      setTimeout(() => {
+        setNotification({ message: null, type: null });
+      }, 3000);
+    }
+  }
+
   const handleLogout = () => {
     window.localStorage.removeItem("loggedBogappUser");
     setUser(null);
