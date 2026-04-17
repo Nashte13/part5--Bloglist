@@ -53,13 +53,18 @@ blogsRouter.post('/', async (req, res, next) => {
 })
 
 blogsRouter.put('/:id', async(req, res) => {
-    const {likes} = req.body
+    const body = req.body
 
-    const updatedBlog = await Blog.findByIdAndUpdate(
-        req.params.id,
-        {likes},
-        {new: true, runValidators: true, context: 'query'}
-    )
+    const updatedBlog = {
+        title: body.title,
+        author: body.author,
+        url: body.url,
+        likes: body.likes,
+        user: body.user
+    }
+
+    const result = await Blog.findByIdAndUpdate(req.params.id, updatedBlog, { new: true })
+    res.json(result)
 
     if (updatedBlog) {
         res.json(updatedBlog)
