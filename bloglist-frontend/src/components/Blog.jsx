@@ -6,7 +6,7 @@ const Blog = ({ blog, updateLikes }) => {
     const updatedBlog = {
       ...blog,
       likes: blog.likes + 1,
-      user: blog.user.id || blog.user
+      user: typeof blog.user === "object" ? blog.user.id || blog.user._id : blog.user
     }
     updateLikes(blog.id, updatedBlog);
   };
