@@ -86,7 +86,7 @@ const App = () => {
         setNotification({ message: null, type: null });
       }, 3000);
     }
-  }
+  };
 
   const handleLogout = () => {
     window.localStorage.removeItem("loggedBogappUser");
@@ -122,10 +122,12 @@ const App = () => {
           {blogForm()}
 
           <div>
-            {blogs.map((blog) => (
+            {blogs
+              .slice()
+              .sort((a, b) => b.likes - a.likes)
+              .map((blog) => (
               <Blog key={blog.id} blog={blog} updateLikes={updateLikes} />
             ))}
-            
           </div>
         </div>
       )}
