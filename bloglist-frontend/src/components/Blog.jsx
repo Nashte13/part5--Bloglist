@@ -7,8 +7,8 @@ const Blog = ({ blog, updateLikes }) => {
     const updatedBlog = {
       ...blog,
       likes: blogs.likes + 1,
-      user: blog.user.id || blog.user,
-    };
+      user: blog.user.id || blog.user
+    }
     updateLikes(blog.id, updatedBlog);
   };
 
