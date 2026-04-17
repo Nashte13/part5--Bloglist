@@ -88,6 +88,22 @@ const App = () => {
     }
   };
 
+  const deleteBlog = async (id) => {
+    try {
+      await blogService.remove(id);
+      setBlogs(blogs.filter((blog) => blog.id !== id));
+      setNotification({ message: "Blog deleted successfully", type: "success" });
+      setTimeout(() => {
+        setNotification({ message: null, type: null });
+      }, 3000);
+    } catch {
+      setNotification({ message: "Failed to delete blog", type: "error" });
+      setTimeout(() => {
+        setNotification({ message: null, type: null });
+      }, 3000);
+    }
+  }
+
   const handleLogout = () => {
     window.localStorage.removeItem("loggedBogappUser");
     setUser(null);
@@ -126,7 +142,7 @@ const App = () => {
               .slice()
               .sort((a, b) => b.likes - a.likes)
               .map((blog) => (
-              <Blog key={blog.id} blog={blog} updateLikes={updateLikes} />
+              <Blog key={blog.id} blog={blog} updateLikes={updateLikes} deleteBlog={deleteBlog} />
             ))}
           </div>
         </div>
