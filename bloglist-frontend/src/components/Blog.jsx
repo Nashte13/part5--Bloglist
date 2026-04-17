@@ -4,7 +4,7 @@ const Blog = ({ blog, updateLikes }) => {
   const [showDetails, setShowDetails] = useState(false)
 
   const handleLike = () => {
-    const updatedBlog = { ...blog, likes: blogs.likes + 1 }
+    const updatedBlog = { ...blog, likes: blogs.likes + 1, user: blog.user.id || blog.user }
     updateLikes(blog.id, updatedBlog)
   }
 
