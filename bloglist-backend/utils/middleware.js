@@ -33,7 +33,7 @@ const errorHandler = (error, req, res, next) => {
 const tokenExtractor = (req, res, next) => {
     const authorization = req.get('authorization')
     if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-        req.token =  authorization.subString(7)
+        req.token =  authorization.substring(7)
     } else {
         req.token = null
     }
