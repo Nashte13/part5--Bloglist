@@ -6,8 +6,11 @@ const Blog = ({ blog, updateLikes, deleteBlog }) => {
     const updatedBlog = {
       ...blog,
       likes: blog.likes + 1,
-      user: typeof blog.user === "object" ? blog.user.id || blog.user._id : blog.user
-    }
+      user:
+        typeof blog.user === "object"
+          ? blog.user.id || blog.user._id
+          : blog.user,
+    };
     updateLikes(blog.id, updatedBlog);
   };
 
