@@ -22,13 +22,13 @@ const Blog = ({ blog, updateLikes, deleteBlog }) => {
     marginBottom: 5,
   };
   return (
-    <div style={blogStyle}>
+    <div style={blogStyle} className="blog">
       {blog.title} by {blog.author}
       <button onClick={() => setShowDetails(!showDetails)}>
         {showDetails ? "hide" : "view"}
       </button>
       {showDetails && (
-        <div>
+        <div className="blod-details">
           <p>URL: {blog.url}</p>
           <p>
             Likes: {blog.likes}
