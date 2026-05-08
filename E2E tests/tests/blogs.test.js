@@ -65,5 +65,29 @@ describe('Blog app', () => {
             //assert that the new blog is visible in the list
             await expect(page.getByText('My First Blog by Nash')).toBeVisible()
         })
+
+        test('a blog can be liked', async ({ page }) => {
+            //login
+            await page.getByRole('textbox', { name: 'username' }).fill('nashm')
+            await page.getByRole('textbox', { name: 'password' }).fill('nm8961')
+            await page.getByRole('button', { name: 'login' }).click()
+
+            //create a blog
+            await page.getByRole('button', { name: 'create new blog' }).click()
+            await page.getByRole('textbox', { name: 'title' }).fill('Blog to be liked')
+            await page.getByRole('textbox', { name: 'author' }).fill('Nash')
+            await page.getByRole('textbox', { name: 'url' }).fill('http://example.com')
+            await page.getByRole('button', { name: 'create' }).click()
+
+            //reveal blog details
+            await page.getByRole('button', { name: 'view' }).click()
+
+            //click the button
+            const likeButton = page.getByRole('button', { name: 'like' })
+            await likeButton.click()
+
+            //assert likes increased
+            await expect(page.getByText('likes 1')).toBeVisible()
+        })
     })
 })
