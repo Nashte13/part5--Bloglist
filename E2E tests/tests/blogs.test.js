@@ -6,13 +6,20 @@ describe('Blog app', () => {
       await page.request.post("http://localhost:3001/api/testing/reset");
 
       //create a user
-      await request.post("http://localhost:3001/api/users", {
-        data: {
-          username: "nashm",
-          name: "Nash",
-          password: "nm8961",
-        },
-      });
+        await request.post('http://localhost:3001/api/users', {
+            data: {
+                username: 'userA',
+                name: 'User A',
+                password: 'passwordA'
+            }
+        })
+        await request.post('http://localhost:3001/api/users', {
+            data: {
+                username: 'userB',
+                name: 'User B',
+                password: 'passwordB'
+            }
+        })
 
         //go to frontend
       await page.goto("http://localhost:5173");
@@ -117,6 +124,34 @@ describe('Blog app', () => {
 
             //assert blog is gone
             await expect(page.queryByText('Blog to be deleted by Nash')).toBeNull()
+        })
+
+        test('only creator can see the delete button', async ({ page }) => {
+            //log in as user A
+            await page.getByRole('textbox', { name: 'username' }).fill('userA')
+            await page.getByRole('textbox', { name: 'password' }).fill('passwordA')
+            await page.getByRole('button', { name: 'login' }).click()
+
+            //create a blog
+            await page.getByRole('button', { name: 'new blog' }).click()
+            await page.getByLableText('title').fill('User A Blog')
+            await page.getByLabelText('author').fill('User A')
+            await page.getByLabelText('url').fill('http://example.com')
+            await page.getByRole('button', { name: 'create' }).click()
+
+            //logout(assuming there is a logout button)
+            await page.getByRole('button', {name: 'logout' }).click()
+
+            //log in as user B
+            await page.getByRole('textbox', {name: 'username'}).fill('userB')
+            await page.getByRole('textbox', {name: 'password'}).fill('passwordB')
+            await page.getByRole('button', { name: 'login' }).click()
+
+            //reveal blog details
+            await page.getByRole('button', {name: 'view' }).click()
+
+            //assert delete button is not visible
+            await expect(page.queryByRole('button', { name: 'remove' })).toBeNull()
         })
     })
 })
