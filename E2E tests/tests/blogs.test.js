@@ -89,5 +89,34 @@ describe('Blog app', () => {
             //assert likes increased
             await expect(page.getByText('likes 1')).toBeVisible()
         })
+
+        test('the user who created a blog can delete it', async ({page}) => {
+            //Log in
+            await page.getByRole('textbox', { name: 'username' }).fill('nashm')
+            await page.getByRole('textbox', { name: 'password' }).fill('nm8961')
+            await page.getByRole('button', { name: 'login' }).click()
+
+            //create a blog
+            await page.getByRole('button', {name: 'create new blog' }).click()
+            await page.getByLabelText('title').fill('Blog to be deleted')
+            await page.getByLabelText('author').fill('Nash')
+            await page.getByLabelText('url').fill('http://example.com')
+            await page.getByRole('button', { name: 'create' }).click()
+
+            //reveal blog details
+            await page.getByRole('button', { name: 'view' }).click()
+
+            //handle the confirm dialog
+            page.on('dialog', async dialog => {
+                expect(dialog.message()).toContain('Remove blog')//optional check
+                await dialog.accept()//confirm deletion
+            })
+
+            //click remove
+            await page.getByRole('button', {name: 'remove'}).click()
+
+            //assert blog is gone
+            await expect(page.queryByText('Blog to be deleted by Nash')).toBeNull()
+        })
     })
 })
