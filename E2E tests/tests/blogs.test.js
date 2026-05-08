@@ -153,5 +153,54 @@ describe('Blog app', () => {
             //assert delete button is not visible
             await expect(page.queryByRole('button', { name: 'remove' })).toBeNull()
         })
+
+        test('blogs are ordered by likes, most liked first', async ({ page }) => {
+          //log in
+          await page.getByRole("textbox", { name: "username" }).fill("nashm");
+          await page.getByRole("textbox", { name: "password" }).fill("nm8961");
+          await page.getByRole("button", { name: "login" }).click();
+
+          //create blog A
+          await page.getByRole("button", { name: "create new blog" }).click();
+          await page.getByLabelText("title").fill("Blog A");
+          await page.getByLabelText("author").fill("Nash");
+          await page.getByLabelText("url").fill("http://example.com");
+          await page.getByRole("button", { name: "create" }).click();
+
+          //create blog B
+          await page.getByRole("button", { name: "create new blog" }).click();
+          await page.getByLabelText("title").fill("Blog B");
+          await page.getByLabelText("author").fill("Nash");
+          await page.getByLabelText("url").fill("http://example.com");
+          await page.getByRole("button", { name: "create" }).click();
+
+          //like blog B twice
+          await page
+            .getByText("Blog B by Nash")
+            .getByRole("button", { name: "view" })
+            .click();
+          const likeButtonB = page
+            .getByText("Blog B by Nash")
+            .getByRole("button", { name: "like" });
+          await likeButtonB.click();
+          await likeButtonB.click();
+
+          //like blog A once
+          await page
+            .getByText("Blog A by Nash")
+            .getByRole("button", { name: "view" })
+            .click();
+          const likeButtonA = page
+            .getByText("Blog A by Nash")
+            .getByRole("button", { name: "like" });
+          await likeButtonA.click();
+
+          //get all blogs in the list
+          const blogs = page.locator(".blog"); //assuming each blog has a class 'blog'
+
+            //assert blog B (2 likes)  comess before Blog A(1 like)
+            await expect(blogs.nth(0)).toContainText("Blog B by Nash");
+            await expect(blogs.nth(1)).toContainText("Blog A by Nash");
+        })
     })
 })
