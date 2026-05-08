@@ -2,11 +2,47 @@ const {test, expect, beforeEach, describe} = require('@playwright/test')
 
 describe('Blog app', () => {
     beforeEach(async ({ page }) => {
-        await page.goto('http://localhost:5173')
-    })
+      //empty database
+      await page.request.post("http://localhost:3001/api/testing/reset");
+
+      //create a user
+      await request.post("http://localhost:3001/api/users", {
+        data: {
+          username: "nashm",
+          name: "Nash",
+          password: "nm8961",
+        },
+      });
+
+        //go to frontend
+      await page.goto("http://localhost:5173");
+    });
 
     test('login form is shown', async ({ page }) => {
         await expect(page.getByRole('heading', { name: 'Log in to application' })).toBeVisible()
-        
+
+    })
+
+    describe('Login', () => {
+        test('succeeds with correct credentials', async ({ page }) => {
+            await page.getByRole('textbox', { name: 'username' }).fill('nashm')
+            await page.getByRole('textbox', { name: 'password' }).fill('nm8961')
+            await page.getByRole('button', { name: 'login' }).click()
+
+            //expect something visible after login
+            await expect(page/getByText('Nash logged in')).toBeVisible()
+        })
+
+        test('fails with wrong credentials', async ({ page }) => {
+            await page.getByRole('textbox', {name: 'username'}).fill('nashm')
+            await page.getByRole('textbox', {name: 'password'}).fill('wrong')
+            await page.getByRole('button', { name: 'login' }).click()
+            
+            //expect error message
+            await expect(page.getByText('invalid username or password')).toBeVisible()
+
+            //ensure login did not succeed
+            await expect(page.getByText('Nash logged in')).not.toBeVisible()
+        })
     })
 })
