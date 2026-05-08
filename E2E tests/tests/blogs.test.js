@@ -48,7 +48,7 @@ describe('Blog app', () => {
         test('a new blog can be created', async ({page}) => {
             //login first
             await page.getByRole('textbox', { name: 'username' }).fill('nashm')
-            await page.getByRole('textbox', name: {'password'}).fill('nm8961')
+            await page.getByRole('textbox', {name: 'password'}).fill('nm8961')
             await page.getByRole('button', { name: 'login' }).click()
 
             //open blog creation form
