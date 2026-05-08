@@ -44,5 +44,26 @@ describe('Blog app', () => {
             //ensure login did not succeed
             await expect(page.getByText('Nash logged in')).not.toBeVisible()
         })
+
+        test('a new blog can be created', async ({page}) => {
+            //login first
+            await page.getByRole('textbox', { name: 'username' }).fill('nashm')
+            await page.getByRole('textbox', name: {'password'}).fill('nm8961')
+            await page.getByRole('button', { name: 'login' }).click()
+
+            //open blog creation form
+            await page.getByRole('button', { name: 'create new blog' }).click()
+
+            //fill in the blog details
+            await page.getByRole('textbox', { name: 'title' }).fill('My First Blog')
+            await page.getByRole('textbox', { name: 'author' }).fill('Nash')
+            await page.getByRole('textbox', { name: 'url' }).fill('http://example.com')
+
+            //submit
+            await page.getByRole('button', { name: 'create' }).click()
+
+            //assert that the new blog is visible in the list
+            await expect(page.getByText('My First Blog by Nash')).toBeVisible()
+        })
     })
 })
