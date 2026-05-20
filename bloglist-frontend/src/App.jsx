@@ -144,7 +144,7 @@ const App = () => {
           }
         />
         <Route
-          path="/login"
+          path="/blogs"
           element={
             <div>
               <BlogList
