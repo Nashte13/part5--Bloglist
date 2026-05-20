@@ -131,11 +131,18 @@ const App = () => {
         <Route
           path="/login"
           element={
-            <BlogList
-              blogs={blogs}
-              updateLikes={updateLikes}
-              deleteBlog={deleteBlog}
-            />
+            <div>
+              <BlogList
+                blogs={blogs}
+                updateLikes={updateLikes}
+                deleteBlog={deleteBlog}
+              />
+              {user && (
+                <Togglable buttonLabel="Create new blog" ref={blogFormRef}>
+                  {blogForm()}
+                </Togglable>
+              )}
+            </div>
           }
         />
 
@@ -172,7 +179,6 @@ const App = () => {
             </p>
           </div>
 
-          {blogForm()}
         </div>
       )}
     </div>
