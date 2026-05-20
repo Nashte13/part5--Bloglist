@@ -136,15 +136,7 @@ const App = () => {
           </div>
 
           {blogForm()}
-
-          <div>
-            {blogs
-              .slice()
-              .sort((a, b) => b.likes - a.likes)
-              .map((blog) => (
-              <Blog key={blog.id} blog={blog} updateLikes={updateLikes} deleteBlog={deleteBlog} />
-            ))}
-          </div>
+          
         </div>
       )}
     </div>
