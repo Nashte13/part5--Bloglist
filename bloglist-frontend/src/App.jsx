@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import {Routes, Route, Link, useNavigate} from "react-router-dom";
 import Blog from "./components/Blog";
 import blogService from "./services/blogs";
 import loginServices from "./services/login";
@@ -6,6 +7,8 @@ import Notification from "./components/Notification";
 import LoginForm from "./components/LoginForm";
 import BlogForm from "./components/BlogForm";
 import Togglable from "./components/Togglable";
+import BlogList from "./components/BlogList";
+import Home from "./components/Home";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
@@ -16,7 +19,9 @@ const App = () => {
     message: null,
     type: null,
   });
+
   const blogFormRef = useRef();
+  const navigate = useNavigate();
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
@@ -106,25 +111,57 @@ const App = () => {
 
   const handleLogout = () => {
     window.localStorage.removeItem("loggedBogappUser");
-    setUser(null);
+    setUser(null)
+    navigate("/")
   };
 
   return (
     <div>
       <Notification message={notification.message} type={notification.type} />
-      <h1>Blogs</h1>
 
-      {!user && (
-        <Togglable buttonLabel="Login">
-          <LoginForm
-            username={username}
-            password={password}
-            handleUsernameChange={({ target }) => setUsername(target.value)}
-            handlePasswordChange={({ target }) => setPassword(target.value)}
-            handleSubmit={handleLogin}
-          />
-        </Togglable>
-      )}
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/blogs">Blogs</Link>
+        <Link to="/login">Login</Link>
+        {user && <button onClick={handleLogout}>logout</button>}
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route
+          path="/login"
+          element={
+            <BlogList
+              blogs={blogs}
+              updateLikes={updateLikes}
+              deleteBlog={deleteBlog}
+            />
+          }
+        />
+
+        <Route
+          path="/login"
+          element={
+            <div>
+              {!user && (
+                <Togglable buttonLabel="Login">
+                  <LoginForm
+                    username={username}
+                    password={password}
+                    handleUsernameChange={({ target }) =>
+                      setUsername(target.value)
+                    }
+                    handlePasswordChange={({ target }) =>
+                      setPassword(target.value)
+                    }
+                    handleSubmit={handleLogin}
+                  />
+                </Togglable>
+              )}
+            </div>
+          }
+        />
+      </Routes>
 
       {user && (
         <div>
@@ -136,7 +173,6 @@ const App = () => {
           </div>
 
           {blogForm()}
-          
         </div>
       )}
     </div>
