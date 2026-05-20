@@ -18,3 +18,5 @@ const BlogList = ({ blogs, updateLikes, deleteBlog }) => {
       </div>
     );
 }
+
+export default BlogList;
