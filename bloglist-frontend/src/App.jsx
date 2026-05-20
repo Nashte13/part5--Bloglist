@@ -166,7 +166,7 @@ const App = () => {
           element={
             <div>
               {!user && (
-                <Togglable buttonLabel="Login">
+                <Togglable buttonLabel="Click to login">
                   <LoginForm
                     username={username}
                     password={password}
