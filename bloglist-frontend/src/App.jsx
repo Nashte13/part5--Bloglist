@@ -54,6 +54,7 @@ const App = () => {
         setNotification({ message: null, type: null });
       }, 3000);
     }
+    navigate("/")
   };
 
   const addBlog = async (blogObject) => {
