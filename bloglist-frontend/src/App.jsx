@@ -127,7 +127,22 @@ const App = () => {
       </nav>
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            <div>
+              {user && (
+                  <div>
+                    <p>
+                      {user.username} logged in
+                    </p>
+                  </div>
+                
+              )}
+              <Home />
+            </div>
+          }
+        />
         <Route
           path="/login"
           element={
@@ -169,18 +184,6 @@ const App = () => {
           }
         />
       </Routes>
-
-      {user && (
-        <div>
-          <div>
-            <p>
-              {user.username} logged in
-              <button onClick={handleLogout}>Logout</button>
-            </p>
-          </div>
-
-        </div>
-      )}
     </div>
   );
 };
