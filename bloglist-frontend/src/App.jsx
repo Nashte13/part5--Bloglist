@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import {Routes, Route, Link, useNavigate} from "react-router-dom";
-import Blog from "./components/Blog";
 import blogService from "./services/blogs";
 import loginServices from "./services/login";
 import Notification from "./components/Notification";
@@ -155,8 +154,6 @@ const App = () => {
             <div>
               <BlogList
                 blogs={blogs}
-                updateLikes={updateLikes}
-                deleteBlog={deleteBlog}
               />
               {user && blogForm()}
             </div>
