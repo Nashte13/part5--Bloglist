@@ -123,7 +123,7 @@ const App = () => {
       <nav>
         <Link to="/">Home</Link>
         <Link to="/blogs">Blogs</Link>
-        <Link to="/login">Login</Link>
+        {!user && <Link to="/login">Login</Link>}
         {user && <button onClick={handleLogout}>logout</button>}
       </nav>
 
@@ -133,12 +133,9 @@ const App = () => {
           element={
             <div>
               {user && (
-                  <div>
-                    <p>
-                      {user.username} logged in
-                    </p>
-                  </div>
-                
+                <div>
+                  <p>{user.username} logged in</p>
+                </div>
               )}
               <Home />
             </div>
@@ -153,11 +150,7 @@ const App = () => {
                 updateLikes={updateLikes}
                 deleteBlog={deleteBlog}
               />
-              {user && (
-                <Togglable buttonLabel="Create new blog" ref={blogFormRef}>
-                  {blogForm()}
-                </Togglable>
-              )}
+              {user && blogForm()}
             </div>
           }
         />
