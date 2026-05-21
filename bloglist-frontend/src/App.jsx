@@ -9,6 +9,7 @@ import BlogForm from "./components/BlogForm";
 import Togglable from "./components/Togglable";
 import BlogList from "./components/BlogList";
 import Home from "./components/Home";
+import BlogDetail from "./components/BlogDetail";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
@@ -123,6 +124,13 @@ const App = () => {
       <nav>
         <Link to="/">Home</Link>
         <Link to="/blogs">Blogs</Link>
+        <Link to="/blogs/:id" element={
+          <BlogDetail
+            blogs={blogs}
+            updateLikes={updateLikes}
+            deleteBlog={deleteBlog}
+          />
+        } />
         {!user && <Link to="/login">Login</Link>}
         {user && <button onClick={handleLogout}>logout</button>}
       </nav>
