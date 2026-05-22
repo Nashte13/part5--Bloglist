@@ -123,13 +123,6 @@ const App = () => {
       <nav>
         <Link to="/">Home</Link>
         <Link to="/blogs">Blogs</Link>
-        <Link to="/blogs/:id" element={
-          <BlogDetail
-            blogs={blogs}
-            updateLikes={updateLikes}
-            deleteBlog={deleteBlog}
-          />
-        } />
         {!user && <Link to="/login">Login</Link>}
         {user && <button onClick={handleLogout}>logout</button>}
       </nav>
@@ -157,6 +150,16 @@ const App = () => {
               />
               {user && blogForm()}
             </div>
+          }
+        />
+        <Route
+          path="/blogs/:id"
+          element={
+            <BlogDetail
+              blogs={blogs}
+              updateLikes={updateLikes}
+              deleteBlog={deleteBlog}
+            />
           }
         />
 
