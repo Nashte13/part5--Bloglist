@@ -173,6 +173,7 @@ const App = () => {
                 :
                 <p>
                   Please log in to create a new blog
+                  <button onClick={() => navigate("/login")}>Go to Login</button>
                 </p>
               }
             </div>
