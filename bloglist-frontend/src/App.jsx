@@ -123,6 +123,7 @@ const App = () => {
       <nav>
         <Link to="/">Home</Link>
         <Link to="/blogs">Blogs</Link>
+        <Link to="/create">Create</Link>
         {!user && <Link to="/login">Login</Link>}
         {user && <button onClick={handleLogout}>logout</button>}
       </nav>
@@ -148,7 +149,6 @@ const App = () => {
               <BlogList
                 blogs={blogs}
               />
-              {user && blogForm()}
             </div>
           }
         />
@@ -160,6 +160,22 @@ const App = () => {
               updateLikes={updateLikes}
               deleteBlog={deleteBlog}
             />
+          }
+        />
+
+        <Route
+          path="/create"
+          element={
+            <div>
+              <h3>Add a Blog</h3>
+              {user ?
+                blogForm()
+                :
+                <p>
+                  Please log in to create a new blog
+                </p>
+              }
+            </div>
           }
         />
 
