@@ -75,6 +75,7 @@ const App = () => {
         setNotification({ message: null, type: null });
       }, 3000);
     }
+    navigate("/blogs")
   };
   const blogForm = () => (
     <Togglable buttonLabel="Create new blog" ref={blogFormRef}>
@@ -108,6 +109,7 @@ const App = () => {
         setNotification({ message: null, type: null });
       }, 3000);
     }
+    navigate("/blogs")
   }
 
   const handleLogout = () => {
