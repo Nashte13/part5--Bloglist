@@ -161,6 +161,7 @@ const App = () => {
               blogs={blogs}
               updateLikes={updateLikes}
               deleteBlog={deleteBlog}
+              currentUser={user}
             />
           }
         />
