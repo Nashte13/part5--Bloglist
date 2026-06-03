@@ -15,39 +15,38 @@ const BlogForm = ({ addBlog }) => {
   };
 
   return (
-    <div>
+    <Paper>
       <Typography variant="h5" gutterBottom>
         Create new blog
       </Typography>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <TextField
-            label="Title"
-              value={title}
-              onChange={({ target }) => setTitle(target.value)}
-            />
-        </div>
-        <div>
-          <label>
-            Author
-            <input
-              value={author}
-              onChange={({ target }) => setAuthor(target.value)}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            url
-            <input
-              value={url}
-              onChange={({ target }) => setUrl(target.value)}
-            />
-          </label>
-        </div>
-        <button type="submit">Create</button>
-      </form>
-    </div>
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+      >
+              <TextField
+                label="Title"
+                value={title}
+                onChange={({ target }) => setTitle(target.value)}
+              />
+            
+              <TextField
+                label="Author"
+                value={author}
+                onChange={({ target }) => setAuthor(target.value)}
+                />
+            
+              <TextField
+                label="URL"
+                value={url}
+                onChange={({ target }) => setUrl(target.value)}
+                />
+            
+            <Button variant="contained" color="primary" type="submit">
+              Create
+            </Button>
+      </Box>
+    </Paper>
   );
 };
 
