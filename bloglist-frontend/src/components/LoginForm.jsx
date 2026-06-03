@@ -5,7 +5,6 @@ const LoginForm = ({ handleSubmit, username, handleUsernameChange, password, han
         <h2>Login</h2>
         <form onSubmit={handleSubmit}>
           <div>
-            <Input >
               <label>
                 username
                 <input
@@ -14,7 +13,6 @@ const LoginForm = ({ handleSubmit, username, handleUsernameChange, password, han
                   onChange={handleUsernameChange}
                 />
               </label>
-            </Input>
           </div>
           <div>
             <label>
