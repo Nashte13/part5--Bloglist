@@ -13,7 +13,6 @@ const LoginForm = ({ handleSubmit, username, handleUsernameChange, password, han
         onSubmit={handleSubmit}
         sx={{ display: "flex", flexDirection: "column", gap: 2 }}
       >
-        <form onSubmit={handleSubmit}>
           <TextField
             label="Username"
             variant="outlined"
@@ -33,7 +32,6 @@ const LoginForm = ({ handleSubmit, username, handleUsernameChange, password, han
           <Button variant="contained" color="primary" type="submit">
             Login
           </Button>
-        </form>
       </Box>
     </Paper>
   );
