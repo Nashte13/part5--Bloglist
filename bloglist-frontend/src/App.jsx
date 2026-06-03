@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
-import { Container } from "@mui/material";
+import { AppBar, Container, Toolbar, Button } from "@mui/material";
 import blogService from "./services/blogs";
 import loginServices from "./services/login";
 import Notification from "./components/Notification";
@@ -122,95 +122,107 @@ const App = () => {
   return (
     <Container>
       <div>
-      <Notification message={notification.message} type={notification.type} />
+        <Notification message={notification.message} type={notification.type} />
 
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/blogs">Blogs</Link>
-        <Link to="/create">Create</Link>
-        {!user && <Link to="/login">Login</Link>}
-        {user && <button onClick={handleLogout}>logout</button>}
-      </nav>
+        <AppBar position="static" style={{ padding: "10px" }}>
+          <Toolbar>
+            <Button color="inherit" component={Link} to="/">
+              Home
+            </Button>
+            <Button color="inherit" component={Link} to="/blogs">
+              Blogs
+            </Button>
+            <Button color="inherit" component={Link} to="/create">
+              Create
+            </Button>
+            <Button color="inherit">
+              {!user && <Link to="/login">Login</Link>}
+            </Button>
+            <Button color="inherit">
+              {user && <Link onClick={handleLogout}>logout</Link>}
+            </Button>
+          </Toolbar>
+        </AppBar>
 
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div>
-              {user && (
-                <div>
-                  <p>{user.username} logged in</p>
-                </div>
-              )}
-              <Home />
-            </div>
-          }
-        />
-        <Route
-          path="/blogs"
-          element={
-            <div>
-              <BlogList
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div>
+                {user && (
+                  <div>
+                    <p>{user.username} logged in</p>
+                  </div>
+                )}
+                <Home />
+              </div>
+            }
+          />
+          <Route
+            path="/blogs"
+            element={
+              <div>
+                <BlogList blogs={blogs} />
+              </div>
+            }
+          />
+          <Route
+            path="/blogs/:id"
+            element={
+              <BlogDetail
                 blogs={blogs}
+                updateLikes={updateLikes}
+                deleteBlog={deleteBlog}
+                currentUser={user}
               />
-            </div>
-          }
-        />
-        <Route
-          path="/blogs/:id"
-          element={
-            <BlogDetail
-              blogs={blogs}
-              updateLikes={updateLikes}
-              deleteBlog={deleteBlog}
-              currentUser={user}
-            />
-          }
-        />
+            }
+          />
 
-        <Route
-          path="/create"
-          element={
-            <div>
-              <h3>Add a Blog</h3>
-              {user ?
-                blogForm()
-                :
-                <p>
-                  Please log in to create a new blog
-                  <button onClick={() => navigate("/login")}>Go to Login</button>
-                </p>
-              }
-            </div>
-          }
-        />
+          <Route
+            path="/create"
+            element={
+              <div>
+                <h3>Add a Blog</h3>
+                {user ? (
+                  blogForm()
+                ) : (
+                  <p>
+                    Please log in to create a new blog
+                    <button onClick={() => navigate("/login")}>
+                      Go to Login
+                    </button>
+                  </p>
+                )}
+              </div>
+            }
+          />
 
-        <Route
-          path="/login"
-          element={
-            <div>
-              {!user && (
-                <Togglable buttonLabel="Click to login">
-                  <LoginForm
-                    username={username}
-                    password={password}
-                    handleUsernameChange={({ target }) =>
-                      setUsername(target.value)
-                    }
-                    handlePasswordChange={({ target }) =>
-                      setPassword(target.value)
-                    }
-                    handleSubmit={handleLogin}
-                  />
-                </Togglable>
-              )}
-            </div>
-          }
-        />
-      </Routes>
-    </div>
+          <Route
+            path="/login"
+            element={
+              <div>
+                {!user && (
+                  <Togglable buttonLabel="Click to login">
+                    <LoginForm
+                      username={username}
+                      password={password}
+                      handleUsernameChange={({ target }) =>
+                        setUsername(target.value)
+                      }
+                      handlePasswordChange={({ target }) =>
+                        setPassword(target.value)
+                      }
+                      handleSubmit={handleLogin}
+                    />
+                  </Togglable>
+                )}
+              </div>
+            }
+          />
+        </Routes>
+      </div>
     </Container>
-  )
+  );
 };
 
 export default App;
