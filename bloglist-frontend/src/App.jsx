@@ -119,6 +119,8 @@ const App = () => {
     navigate("/")
   };
 
+  const style = {'&:hover': {bgcolor: 'rgba(255, 255, 255, 0.3)'}}
+
   return (
     <Container>
       <div>
@@ -126,21 +128,25 @@ const App = () => {
 
         <AppBar position="static" style={{ padding: "10px" }}>
           <Toolbar>
-            <Button color="inherit" component={Link} to="/">
+            <Button color="inherit" component={Link} to="/" sx={style}>
               Home
             </Button>
-            <Button color="inherit" component={Link} to="/blogs">
+            <Button color="inherit" component={Link} to="/blogs" sx={style}>
               Blogs
             </Button>
-            <Button color="inherit" component={Link} to="/create">
+            <Button color="inherit" component={Link} to="/create" sx={style}>
               Create
             </Button>
-            <Button color="inherit">
-              {!user && <Link to="/login">Login</Link>}
+            {!user &&
+            <Button color="inherit" component={Link} to="/login" sx={style}>
+              Login
             </Button>
-            <Button color="inherit">
-              {user && <Link onClick={handleLogout}>logout</Link>}
+            }
+            {user &&
+            <Button color="inherit" onClick={handleLogout} sx={style}>
+              Logout
             </Button>
+            }
           </Toolbar>
         </AppBar>
 
