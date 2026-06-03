@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import {Routes, Route, Link, useNavigate} from "react-router-dom";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { Container } from "@mui/material";
 import blogService from "./services/blogs";
 import loginServices from "./services/login";
 import Notification from "./components/Notification";
@@ -119,7 +120,8 @@ const App = () => {
   };
 
   return (
-    <div>
+    <Container>
+      <div>
       <Notification message={notification.message} type={notification.type} />
 
       <nav>
@@ -207,7 +209,8 @@ const App = () => {
         />
       </Routes>
     </div>
-  );
+    </Container>
+  )
 };
 
 export default App;
