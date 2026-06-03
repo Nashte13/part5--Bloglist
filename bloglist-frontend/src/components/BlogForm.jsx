@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {TextField, Button, Typography, Paper, Box} from "@mui/material";
 
 const BlogForm = ({ addBlog }) => {
   const [title, setTitle] = useState("");
@@ -15,16 +16,16 @@ const BlogForm = ({ addBlog }) => {
 
   return (
     <div>
-      <h3>Create new blog</h3>
+      <Typography variant="h5" gutterBottom>
+        Create new blog
+      </Typography>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>
-            Title
-            <input
+          <TextField
+            label="Title"
               value={title}
               onChange={({ target }) => setTitle(target.value)}
             />
-          </label>
         </div>
         <div>
           <label>
