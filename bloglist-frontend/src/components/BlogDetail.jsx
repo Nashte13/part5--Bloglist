@@ -1,5 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
-import {Card, CardContent, CardActions, Button, Box, Typography} from "@mui/material";
+import { Card, CardContent, CardActions, Button, Box, Typography } from "@mui/material";
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const BlogDetail = ({ blogs, updateLikes, deleteBlog, currentUser }) => {
   const { id } = useParams();
@@ -20,14 +22,6 @@ const BlogDetail = ({ blogs, updateLikes, deleteBlog, currentUser }) => {
           : blog.user,
     };
     updateLikes(blog.id, updatedBlog);
-  };
-
-  const blogStyle = {
-    paddingTop: 10,
-    paddingLeft: 2,
-    border: "solid",
-    borderWidth: 1,
-    marginBottom: 5,
   };
 
   const handleDelete = () => {
