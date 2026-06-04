@@ -1,7 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardActions, Button, Box, Typography } from "@mui/material";
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import DeleteIcon from '@mui/icons-material/Delete';
+
 
 const BlogDetail = ({ blogs, updateLikes, deleteBlog, currentUser }) => {
   const { id } = useParams();
