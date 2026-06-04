@@ -6,7 +6,7 @@ const BlogDetail = ({ blogs, updateLikes, deleteBlog, currentUser }) => {
   const navigate = useNavigate();
 
   const blog = blogs.find((b) => String(b.id) === id);
-  if (!blog) return <p>Blog not found!</p>
+  if (!blog) return <Typography>Blog not found!</Typography>
 
   const isCreator = currentUser && blog.user && blog.user.id === currentUser.id
 
@@ -38,24 +38,40 @@ const BlogDetail = ({ blogs, updateLikes, deleteBlog, currentUser }) => {
   };
 
   return (
-    <div style={blogStyle} className="blog">
-      <h2>{blog.title}</h2>
-      <p>Author: {blog.author}</p>
-      <p>URL: {blog.url}</p>
-      <p> Likes: {blog.likes}</p>
+    <Card>
+      <CardContent>
+        <Typography variant="h5" gutterBottom>
+          {blog.title}
+        </Typography>
+        <Typography variant="substitle1" color="textSecondary">
+          Author: {blog.author}
+        </Typography>
+        <Typography variant="body2" sx={{mt: 1}}>
+          URL: {blog.url}
+        </Typography>
+        <Typography variant="body2" sx={{mt: 1}}>
+          Likes: {blog.likes}
+        </Typography>
+      </CardContent>
 
       {currentUser && (
-        <div>
-          <button onClick={handleLike}>like</button>
-          {isCreator && <button onClick={handleDelete}>remove</button>}
-        </div>
+        <CardActions>
+          <Button variant="contained" color="primary" onClick={handleLike}>
+            Like
+          </Button>
+          {isCreator && (
+            <Button variant="outlined" color="error" onClick={handleDelete}>
+              Remove
+            </Button>
+          )}
+          <Box sx={{flexGrow: 1}} />
+          <Button variant="text" onClick={() => navigate("/blogs")}>
+            Back to Blogs
+          </Button>
+        </CardActions>
       )}
-
-      <p>
-        <button onClick={() => navigate("/blogs")}>Back to blogs</button>
-      </p>
-    </div>
-  );
+    </Card>
+  )
 };
 
 export default BlogDetail;
