@@ -1,4 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
+import {Card, CardContent, CardActions, Button, Box, Typography} from "@mui/material";
 
 const BlogDetail = ({ blogs, updateLikes, deleteBlog, currentUser }) => {
   const { id } = useParams();
